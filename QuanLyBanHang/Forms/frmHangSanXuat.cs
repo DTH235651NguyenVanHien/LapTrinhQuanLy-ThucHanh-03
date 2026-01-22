@@ -11,12 +11,13 @@ using System.Windows.Forms;
 
 namespace QuanLyBanHang.Forms
 {
-    public partial class frmLoaiSanPham : Form
+    public partial class frmHangSanXuat : Form
     {
         QLBHDbContext context = new QLBHDbContext();
         bool xulyThem = false;
         int id;
-        public frmLoaiSanPham()
+
+        public frmHangSanXuat()
         {
             InitializeComponent();
         }
@@ -25,25 +26,25 @@ namespace QuanLyBanHang.Forms
         {
             btnLuu.Enabled = giaTri;
             btnHuyBo.Enabled = giaTri;
-            txtTenLoai.Enabled = giaTri;
+            txtTenHangSanXuat.Enabled = giaTri;
 
             btnThem.Enabled = !giaTri;
             btnSua.Enabled = !giaTri;
             btnXoa.Enabled = !giaTri;
         }
 
-        private void frmLoaiSanPham_Load(object sender, EventArgs e)
+        private void frmHangSanXuat_Load(object sender, EventArgs e)
         {
             BatTatChucNang(false);
 
-            List<LoaiSanPham> lsp = new List<LoaiSanPham>();
-            lsp = context.LoaiSanPham.ToList();
+            List<HangSanXuat> lsp = new List<HangSanXuat>();
+            lsp = context.HangSanXuat.ToList();
 
             BindingSource bindingSource = new BindingSource();
             bindingSource.DataSource = lsp;
 
-            txtTenLoai.DataBindings.Clear();
-            txtTenLoai.DataBindings.Add("Text", bindingSource, "TenLoai", false, DataSourceUpdateMode.Never);
+            txtTenHangSanXuat.DataBindings.Clear();
+            txtTenHangSanXuat.DataBindings.Add("Text", bindingSource, "TenLoai", false, DataSourceUpdateMode.Never);
 
             dataGridView.DataSource = lsp;
         }
@@ -52,7 +53,7 @@ namespace QuanLyBanHang.Forms
         {
             xulyThem = true;
             BatTatChucNang(true);
-            txtTenLoai.Clear();
+            txtTenHangSanXuat.Clear();
         }
 
         private void btnSua_Click(object sender, EventArgs e)
@@ -62,57 +63,56 @@ namespace QuanLyBanHang.Forms
             id = Convert.ToInt32(dataGridView.CurrentRow.Cells["id"].Value.ToString());
         }
 
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Xac nhan xoa hang san xuat ?", "Xoa", MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+                HangSanXuat hsx = context.HangSanXuat.Find(id);
+                if (hsx != null)
+                {
+                    context.HangSanXuat.Remove(hsx);
+                }
+                context.SaveChanges();
+                frmHangSanXuat_Load(sender, e);
+            }
+        }
+
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtTenLoai.Text))
+            if (string.IsNullOrWhiteSpace(txtTenHangSanXuat.Text))
             {
-                MessageBox.Show("Vui long nhap ten san pham", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Vui long nhap ten hang san xuat", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
                 if (xulyThem)
                 {
-                    LoaiSanPham lsp = new LoaiSanPham();
-                    lsp.TenLoai = txtTenLoai.Text;
-                    context.LoaiSanPham.Add(lsp);
+                    HangSanXuat hsx = new HangSanXuat();
+                    hsx.TenHangSanXuat = txtTenHangSanXuat.Text;
+                    context.HangSanXuat.Add(hsx);
 
                     context.SaveChanges();
                 }
                 else
                 {
-                    LoaiSanPham lsp = context.LoaiSanPham.Find(id);
-                    if (lsp != null)
+                    HangSanXuat hsx = context.HangSanXuat.Find(id);
+                    if (hsx != null)
                     {
-                        lsp.TenLoai = txtTenLoai.Text;
-                        context.LoaiSanPham.Update(lsp);
+                        hsx.TenHangSanXuat = txtTenHangSanXuat.Text;
+                        context.HangSanXuat.Update(hsx);
 
                         context.SaveChanges();
                     }
                 }
 
-                frmLoaiSanPham_Load(sender, e);
-            }
-
-        }
-
-        private void btnXoa_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Xac nhan xoa loai san pham ?", "Xoa", MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK)
-            {
-                id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
-                LoaiSanPham lsp = context.LoaiSanPham.Find(id);
-                if (lsp != null)
-                {
-                    context.LoaiSanPham.Remove(lsp);
-                }
-                context.SaveChanges();
-                frmLoaiSanPham_Load(sender, e);
+                frmHangSanXuat_Load(sender, e);
             }
         }
 
         private void btnHuyBo_Click(object sender, EventArgs e)
         {
-            frmLoaiSanPham_Load(sender, e);
+            frmHangSanXuat_Load(sender, e);
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
