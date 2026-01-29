@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace QuanLyBanHang.Migrations
 {
     /// <inheritdoc />
-    public partial class KhoiTaoCSDL : Migration
+    public partial class khoitaocsdl : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
