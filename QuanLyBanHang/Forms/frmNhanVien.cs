@@ -46,7 +46,7 @@ namespace QuanLyBanHang.Forms
         private void frmNhanVien_Load(object sender, EventArgs e)
         {
             BatTatChucNang(false);
-            dataGridView.AutoGenerateColumns = false;
+            //dataGridView.AutoGenerateColumns = false;
 
             List<NhanVien> nv = new List<NhanVien>();
             nv = context.NhanVien.ToList();
@@ -139,6 +139,7 @@ namespace QuanLyBanHang.Forms
                         nv.TenDangNhap = txtTenDangNhap.Text;
                         nv.MatKhau = BC.HashPassword(txtMatKhau.Text);
                         nv.QuyenHan = cboQuyenHan.SelectedIndex == 0 ? true : false;
+                        nv.QuyenHan = true;
                         context.NhanVien.Add(nv);
 
                         context.SaveChanges();

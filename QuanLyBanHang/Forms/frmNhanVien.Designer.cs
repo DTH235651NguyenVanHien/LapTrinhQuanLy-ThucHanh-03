@@ -198,6 +198,7 @@
             // cboQuyenHan
             // 
             cboQuyenHan.FormattingEnabled = true;
+            cboQuyenHan.Items.AddRange(new object[] { "Nhan vien", "Quan ly" });
             cboQuyenHan.Location = new Point(612, 183);
             cboQuyenHan.Name = "cboQuyenHan";
             cboQuyenHan.Size = new Size(242, 40);
