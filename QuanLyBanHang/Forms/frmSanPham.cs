@@ -64,7 +64,7 @@ namespace QuanLyBanHang.Forms
             LayLoaiSanPhamVaoCombobox();
             LayHangSanXuatVaoCombobox();
 
-            //dataGridView.AutoGenerateColumns = false;
+            dataGridView.AutoGenerateColumns = false;
             List<DanhSachSanPham> sp = new List<DanhSachSanPham>();
 
             sp = context.SanPham.Select(r => new DanhSachSanPham
@@ -159,7 +159,7 @@ namespace QuanLyBanHang.Forms
         {
             xuLyThem = false;
             BatTatChucNang(true);
-            id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+            id = Convert.ToInt32(dataGridView.CurrentRow.Cells["MaSanPham"].Value.ToString());
         }
 
         private void btnLuu_Click(object sender, EventArgs e)
@@ -224,7 +224,7 @@ namespace QuanLyBanHang.Forms
         {
             if (MessageBox.Show("Bạn có chắc chắn muốn xóa sản phẩm này không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                int id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+                int id = Convert.ToInt32(dataGridView.CurrentRow.Cells["MaSanPham"].Value.ToString());
                 SanPham sp = context.SanPham.Find(id);
                 if (sp != null)
                 {
@@ -256,9 +256,19 @@ namespace QuanLyBanHang.Forms
                 {
                     Directory.CreateDirectory(imagesFolder);
                 }
-                File.Copy(openFileDialog.FileName, fileSavePath, true );
+                if (picHinhAnh.Image != null)
+                {
+                    picHinhAnh.Image.Dispose();
+                    picHinhAnh.Image = null;
+                }
+                if (picHinhAnh.Image != null)
+                {
+                    picHinhAnh.Image.Dispose();
+                    picHinhAnh.Image = null;
+                }
+                File.Copy(openFileDialog.FileName, fileSavePath, true);
 
-                id = Convert.ToInt32(dataGridView.CurrentRow.Cells["ID"].Value.ToString());
+                id = Convert.ToInt32(dataGridView.CurrentRow.Cells["MaSanPham"].Value.ToString());
                 SanPham sp = context.SanPham.Find(id);
 
                 sp.HinhAnh = fileName + ext;
@@ -268,6 +278,29 @@ namespace QuanLyBanHang.Forms
 
                 frmSanPham_Load(sender, e);
             }
+        }
+
+        private void btnXoaAnh_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Bạn có chắc chắn muốn xóa ảnh này không?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                int id = Convert.ToInt32(dataGridView.CurrentRow.Cells["MaSanPham"].Value.ToString());
+                SanPham sp = context.SanPham.Find(id);
+                if (sp != null)
+                {
+                    sp.HinhAnh = null;
+                }
+                context.SaveChanges();
+                frmSanPham_Load(sender, e);
+            }
+        }
+
+        private void btnXoayAnh_Click(object sender, EventArgs e)
+        {
+            if (picHinhAnh.Image == null) return;
+
+            picHinhAnh.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            picHinhAnh.Refresh();
         }
     }
 }

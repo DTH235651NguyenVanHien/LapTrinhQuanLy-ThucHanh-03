@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            btnXoaAnh = new Button();
             btnXuat = new Button();
             btnThoat = new Button();
             btnSua = new Button();
@@ -54,6 +55,15 @@
             label1 = new Label();
             groupBox2 = new GroupBox();
             dataGridView = new DataGridView();
+            HinhAnh = new DataGridViewImageColumn();
+            MaSanPham = new DataGridViewTextBoxColumn();
+            LoaiSanPham = new DataGridViewTextBoxColumn();
+            HangSanXuat = new DataGridViewTextBoxColumn();
+            TenSanPham = new DataGridViewTextBoxColumn();
+            MoTaSanPham = new DataGridViewTextBoxColumn();
+            SoLuong = new DataGridViewTextBoxColumn();
+            DonGia = new DataGridViewTextBoxColumn();
+            btnXoayAnh = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picHinhAnh).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numDonGia).BeginInit();
@@ -64,6 +74,8 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(btnXoayAnh);
+            groupBox1.Controls.Add(btnXoaAnh);
             groupBox1.Controls.Add(btnXuat);
             groupBox1.Controls.Add(btnThoat);
             groupBox1.Controls.Add(btnSua);
@@ -93,6 +105,16 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin sản phẩm";
+            // 
+            // btnXoaAnh
+            // 
+            btnXoaAnh.Location = new Point(1164, 112);
+            btnXoaAnh.Name = "btnXoaAnh";
+            btnXoaAnh.Size = new Size(150, 46);
+            btnXoaAnh.TabIndex = 23;
+            btnXoaAnh.Text = "Xóa ảnh";
+            btnXoaAnh.UseVisualStyleBackColor = true;
+            btnXoaAnh.Click += btnXoaAnh_Click;
             // 
             // btnXuat
             // 
@@ -311,6 +333,7 @@
             dataGridView.AllowUserToAddRows = false;
             dataGridView.AllowUserToDeleteRows = false;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView.Columns.AddRange(new DataGridViewColumn[] { HinhAnh, MaSanPham, LoaiSanPham, HangSanXuat, TenSanPham, MoTaSanPham, SoLuong, DonGia });
             dataGridView.Location = new Point(0, 38);
             dataGridView.Name = "dataGridView";
             dataGridView.ReadOnly = true;
@@ -318,6 +341,90 @@
             dataGridView.Size = new Size(1769, 337);
             dataGridView.TabIndex = 0;
             dataGridView.CellFormatting += dataGridView_CellFormatting;
+            // 
+            // HinhAnh
+            // 
+            HinhAnh.DataPropertyName = "HinhAnh";
+            HinhAnh.HeaderText = "Hình ành";
+            HinhAnh.MinimumWidth = 10;
+            HinhAnh.Name = "HinhAnh";
+            HinhAnh.ReadOnly = true;
+            HinhAnh.Resizable = DataGridViewTriState.True;
+            HinhAnh.SortMode = DataGridViewColumnSortMode.Automatic;
+            HinhAnh.Width = 200;
+            // 
+            // MaSanPham
+            // 
+            MaSanPham.DataPropertyName = "ID";
+            MaSanPham.HeaderText = "Mã giao diện";
+            MaSanPham.MinimumWidth = 10;
+            MaSanPham.Name = "MaSanPham";
+            MaSanPham.ReadOnly = true;
+            MaSanPham.Width = 200;
+            // 
+            // LoaiSanPham
+            // 
+            LoaiSanPham.DataPropertyName = "LoaiSanPhamID";
+            LoaiSanPham.HeaderText = "Loại sản phẩm";
+            LoaiSanPham.MinimumWidth = 10;
+            LoaiSanPham.Name = "LoaiSanPham";
+            LoaiSanPham.ReadOnly = true;
+            LoaiSanPham.Width = 200;
+            // 
+            // HangSanXuat
+            // 
+            HangSanXuat.DataPropertyName = "HangSanXuatID";
+            HangSanXuat.HeaderText = "Hãng sản xuất";
+            HangSanXuat.MinimumWidth = 10;
+            HangSanXuat.Name = "HangSanXuat";
+            HangSanXuat.ReadOnly = true;
+            HangSanXuat.Width = 200;
+            // 
+            // TenSanPham
+            // 
+            TenSanPham.DataPropertyName = "TenSanPham";
+            TenSanPham.HeaderText = "Tên sản phẩm";
+            TenSanPham.MinimumWidth = 10;
+            TenSanPham.Name = "TenSanPham";
+            TenSanPham.ReadOnly = true;
+            TenSanPham.Width = 200;
+            // 
+            // MoTaSanPham
+            // 
+            MoTaSanPham.DataPropertyName = "MoTa";
+            MoTaSanPham.HeaderText = "Mô tả sản phẩm";
+            MoTaSanPham.MinimumWidth = 10;
+            MoTaSanPham.Name = "MoTaSanPham";
+            MoTaSanPham.ReadOnly = true;
+            MoTaSanPham.Width = 200;
+            // 
+            // SoLuong
+            // 
+            SoLuong.DataPropertyName = "SoLuong";
+            SoLuong.HeaderText = "Số lượng";
+            SoLuong.MinimumWidth = 10;
+            SoLuong.Name = "SoLuong";
+            SoLuong.ReadOnly = true;
+            SoLuong.Width = 200;
+            // 
+            // DonGia
+            // 
+            DonGia.DataPropertyName = "DonGia";
+            DonGia.HeaderText = "Đơn giá";
+            DonGia.MinimumWidth = 10;
+            DonGia.Name = "DonGia";
+            DonGia.ReadOnly = true;
+            DonGia.Width = 200;
+            // 
+            // btnXoayAnh
+            // 
+            btnXoayAnh.Location = new Point(1164, 189);
+            btnXoayAnh.Name = "btnXoayAnh";
+            btnXoayAnh.Size = new Size(150, 46);
+            btnXoayAnh.TabIndex = 24;
+            btnXoayAnh.Text = "Xoay ảnh";
+            btnXoayAnh.UseVisualStyleBackColor = true;
+            btnXoayAnh.Click += btnXoayAnh_Click;
             // 
             // frmSanPham
             // 
@@ -367,5 +474,15 @@
         private NumericUpDown numSoLuong;
         private Button btnXuat;
         private DataGridView dataGridView;
+        private Button btnXoaAnh;
+        private DataGridViewImageColumn HinhAnh;
+        private DataGridViewTextBoxColumn MaSanPham;
+        private DataGridViewTextBoxColumn LoaiSanPham;
+        private DataGridViewTextBoxColumn HangSanXuat;
+        private DataGridViewTextBoxColumn TenSanPham;
+        private DataGridViewTextBoxColumn MoTaSanPham;
+        private DataGridViewTextBoxColumn SoLuong;
+        private DataGridViewTextBoxColumn DonGia;
+        private Button btnXoayAnh;
     }
 }
